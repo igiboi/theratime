@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TimeSlot } from '../types';
+import { TimeSlot } from '@/types';
 
 const initialSlots: TimeSlot[] = [
   {
@@ -13,14 +13,24 @@ const initialSlots: TimeSlot[] = [
 
 export function useTimeSlots() {
   const [slots, setSlots] = useState<TimeSlot[]>(initialSlots);
+  const [bookings, setBookings] = useState<TimeSlot[]>([]);
 
   const addSlot = (slot: TimeSlot) => {
     setSlots((prev) => [...prev, slot]);
   };
 
   const bookSlot = (slotId: string) => {
-    setSlots((prev) => prev.filter((slot) => slot.id !== slotId));
+    const slotToBook = slots.find((s) => s.id === slotId);
+    if (!slotToBook) return;
+
+    setBookings((prev) => [...prev, slotToBook]);
+    setSlots((prev) => prev.filter((s) => s.id !== slotId));
   };
 
-  return { slots, addSlot, bookSlot };
+  return {
+    slots,
+    bookings,
+    addSlot,
+    bookSlot,
+  };
 }

@@ -1,18 +1,21 @@
-import { useTherapists } from '../../hooks/useTherapists';
-import { useTimeSlots } from '../../hooks/useTimeSlots';
+import { useTherapists } from '@/hooks/useTherapists';
+import { useTimeSlots } from '@/hooks/useTimeSlots';
 import { Box, Button, List, ListItem, Typography } from '@mui/material';
 import { useState } from 'react';
 
 export default function ClientDashboard() {
   const therapists = useTherapists();
-  const { slots, bookSlot } = useTimeSlots();
+  const { slots, bookSlot, bookings } = useTimeSlots();
   const [selected, setSelected] = useState<string | null>(null);
 
   const availableSlots = slots.filter((slot) => slot.therapistId === selected);
 
   return (
     <Box>
-      <Typography variant='h5'>Choose a Therapist:</Typography>
+      <Typography variant='h5' gutterBottom>
+        Choose a Therapist:
+      </Typography>
+
       <List>
         {therapists.map((t) => (
           <ListItem key={t.id}>
@@ -46,6 +49,21 @@ export default function ClientDashboard() {
           </List>
         </>
       )}
+
+      <Typography mt={4} variant='h6'>
+        Your Booked Appointments:
+      </Typography>
+      <List>
+        {bookings.length === 0 && (
+          <ListItem>No upcoming appointments.</ListItem>
+        )}
+        {bookings.map((b) => (
+          <ListItem key={b.id}>
+            Therapist ID: {b.therapistId} — {b.date} from {b.startTime} to{' '}
+            {b.endTime}
+          </ListItem>
+        ))}
+      </List>
     </Box>
   );
 }

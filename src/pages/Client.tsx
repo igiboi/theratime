@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import ClientDashboard from '../components/ClientDashboard/ClientDashboard';
+import ClientDashboard from '@/components/ClientDashboard/ClientDashboard';
 import { useNavigate } from 'react-router-dom';
 
 export default function ClientPage() {

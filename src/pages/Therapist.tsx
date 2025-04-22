@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import TherapistDashboard from '../components/TherapistDashboard/TherapistDashboard';
+import TherapistDashboard from '@/components/TherapistDashboard/TherapistDashboard';
 import { useNavigate } from 'react-router-dom';
 
 export default function TherapistPage() {
